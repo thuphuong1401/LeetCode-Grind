@@ -46,6 +46,7 @@ class Solution {
 
 /*
 Iterative approach - similar to breadth first search
+My implementation
 */
 class Solution {
     public TreeNode invertTree(TreeNode root) {
@@ -60,6 +61,33 @@ class Solution {
                 n.right = temp;
                 q.add(n.left); // add the children into the queue
                 q.add(n.right);
+            }
+        }
+        return root;
+    }
+}
+
+/*
+Iterative approach - Solution's implementation
+*/
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) {
+            return root;
+        } 
+        // store nodes whose left child and right child has NOT been swapped
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()) {
+            TreeNode curr = q.remove();
+            TreeNode temp = curr.left;
+            curr.left = curr.right;
+            curr.right = temp;
+            if(curr.left != null) {
+                q.add(curr.left);
+            }
+            if(curr.right != null) {
+                q.add(curr.right);
             }
         }
         return root;
