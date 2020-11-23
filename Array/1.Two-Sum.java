@@ -59,7 +59,8 @@ class Solution {
                 answer[1] = map.get(target - nums[i]);
                 break;
             }
-            // No need to worry about duplicated elements
+            // No need to worry about duplicated elements 
+            // When you put (nums[i], i), the check for matching key to (target - nums[i]) has already been done. Therefore nums[i] will not be checked against itself
             map.put(nums[i], i);
         }
         return answer;
