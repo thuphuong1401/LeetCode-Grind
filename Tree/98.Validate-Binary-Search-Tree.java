@@ -17,7 +17,7 @@ https://leetcode.com/problems/validate-binary-search-tree/
  *     }
  * }
  */
-
+// Fact: inorder traversal of a BST gives a sorted array
 // Recursive solution: recursively check whether left subtree is in range (min, root.val), and right subtree is in range (root.val, max)
 class Solution {
     
@@ -37,5 +37,36 @@ class Solution {
         return x&y;
     }
 }
+
+/*
+- Perform inorder traversal on the tree
+- Save result in an array
+- Iterate through the array: if there is one instance of arr[i] >= arr[i+1] (meaning that array not sorted in ascending order) then return false. Else return true
+*/
+class Solution {
+    List<Integer> result = new ArrayList<>();
+    
+    public boolean isValidBST(TreeNode root) {
+        inOrder(root);
+        
+        for(int i = 0; i < result.size() - 1; i++) {
+            if(result.get(i) >= result.get(i+1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    public void inOrder(TreeNode root) {
+        if(root == null) {
+            return;
+        }
+        inOrder(root.left);
+        result.add(root.val);
+        inOrder(root.right);
+    }
+}
+
 
 
