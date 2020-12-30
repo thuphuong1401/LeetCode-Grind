@@ -1,5 +1,6 @@
 /*
-https://leetcode.com/problems/friend-circles/
+https://leetcode.com/problems/number-of-provinces/
+This problem was named "Friend Circles" at first
 */
 
 /*
