@@ -42,6 +42,7 @@ class Solution {
 
 
 // O(1) space, in theory
+// Idea: use first row and first col to record all the rows & cols having 0 in them
 class Solution {
     public void setZeroes(int[][] matrix) {
         int m = matrix.length;
