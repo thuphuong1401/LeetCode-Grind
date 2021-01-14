@@ -69,4 +69,32 @@ class Solution {
 }
 
 
+/*
+Recursive inorder traversal which uses a TreeNode prev to store the previously visited inorder tree node.
+*/
+class Solution {
+    TreeNode prev;
+    
+    public boolean isValidBST(TreeNode root) {
+        prev = null;
+        return isBST(root);
+    }
+    
+    public boolean isBST(TreeNode root) {
+        if(root == null) {
+            return true;
+        }
+        if(!isBST(root.left)) {
+            return false;
+        }
+        if(prev != null && prev.val >= root.val) {
+            return false;
+        }
+        prev = root;
+        if(!isBST(root.right)) {
+            return false;
+        }
+        return true;
+    }
+}
 
