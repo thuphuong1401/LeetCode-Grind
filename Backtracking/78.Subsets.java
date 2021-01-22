@@ -37,3 +37,35 @@ class Solution {
         return toReturn;
     }
 }
+
+
+// Much faster in terms of memory usage, and less complicated looking code
+class Solution {
+    List<List<Integer>> answer;
+    int n, k; // n choose k problem
+    
+    public List<List<Integer>> subsets(int[] nums) {
+        answer = new ArrayList<>();
+        n = nums.length;
+        List<Integer> res = new ArrayList<>();
+        for(k = 0; k <= n; k++) {
+            permute(nums, res, 0);
+        }
+        return answer;
+    }
+    
+    
+    public void permute(int[] nums, List<Integer> res, int p) {
+        if(res.size() == k) {
+            answer.add(new ArrayList<Integer>(res));
+            return;
+        }
+        
+        for(int j = p; j < n; j++) {
+            res.add(nums[j]);
+            permute(nums, res, j+1);
+            res.remove(res.size() - 1);
+        }
+    }
+    
+}
