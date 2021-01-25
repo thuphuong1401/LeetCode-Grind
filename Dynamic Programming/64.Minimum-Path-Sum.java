@@ -3,9 +3,14 @@ https://leetcode.com/problems/minimum-path-sum/
 */
 
 // Pattern: find lowest path cost
-// Explanation: cost[i][j] = min(all cost approaching (i, j). In this case it's min(dp[i-1][j], dp[i][j-1]) since we can only approach a grid
-// either down or right.
-
+/* Explanation: cost[i][j] = min(all cost approaching (i, j). In this case it's min(dp[i-1][j], dp[i][j-1]) since we can only approach a grid
+ either down or right.
+ 
+ Time: O(mn) => traverse the entire input matrix once
+ Space: O(mn) => allocate new space for dp array of size m*n
+ 
+ 
+*/
 class Solution {
     public int minPathSum(int[][] grid) {
         int m = grid.length;
