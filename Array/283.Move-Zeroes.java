@@ -2,6 +2,7 @@
 https://leetcode.com/problems/move-zeroes/
 */
 
+// Time O(n^2), Space O(1), based on idea of bubble sort
 class Solution {
     public void moveZeroes(int[] nums) {
         int n = nums.length;
@@ -13,6 +14,25 @@ class Solution {
                     nums[j+1] = temp;
                 }
             }
+        }
+    }
+}
+
+
+// Very smart solution indeed
+// Idea: keep a pointer called the positionOfLastNonZero pointer. Loop through the nums array. If encounter nums[i] != 0, copy it to the positionOfLastNonZero
+// Fill the rest from last non zero with zeroes
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int positionOfLastNonZero = 0;
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] != 0) {
+                nums[positionOfLastNonZero++] = nums[i];
+            }
+        }
+        
+        for(int i = positionOfLastNonZero; i < nums.length; i++) {
+            nums[i] = 0;
         }
     }
 }
