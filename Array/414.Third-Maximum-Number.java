@@ -30,7 +30,9 @@ class Solution {
 }
 
 
-// 3 pointers
+/* 3 pointers 
+Time O(n), Space O(1)
+*/
 class Solution {
     public int thirdMax(int[] nums) {
         Integer firstMax = nums[0];
