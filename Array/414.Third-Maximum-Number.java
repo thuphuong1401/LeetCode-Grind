@@ -76,3 +76,37 @@ class Solution {
 }
 
 
+
+// Not my solution
+class Solution {
+    public int thirdMax(int[] nums) {
+        Integer first = nums[0];
+        Integer second = null;
+        Integer third = null;
+        
+        for(int i = 1; i < nums.length; i++) {
+            Integer curr = nums[i];
+            
+            // if duplicate, continue
+            if(curr.equals(first) || curr.equals(second) || curr.equals(third)) {
+                continue;
+            }
+            
+            if(first == null || first < curr) {
+                third = second;
+                second = first; 
+                first = curr;
+            } else if(second == null || second < curr) {
+                third = second;
+                second = curr;
+            } else if(third == null || third < curr) {
+                third = curr;
+            }
+        }
+        
+        if(third != null) {
+            return third;
+        }
+        return first;
+    }
+}
