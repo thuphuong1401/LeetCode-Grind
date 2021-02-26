@@ -44,6 +44,41 @@ class Solution {
 }
 
 
-
+// brute force
+class Solution {
+    public int maxLength(List<String> arr) {
+        List<String> dp = new ArrayList<>();
+        dp.add("");
+        for(String curr : arr) {
+            if(!unique(curr)) {
+                continue;
+            } 
+            List<String> temp = new ArrayList<>();
+            for(String cand : dp) {
+                String newCand = cand + curr;
+                if(unique(newCand)) {
+                    temp.add(newCand);
+                }
+            }
+            dp.addAll(temp);
+        }
+        
+        int max = 0;
+        for(String s : dp) {
+            max = Math.max(max, s.length());
+        }
+        return max;
+    }
+    
+    
+    private boolean unique(String s) {
+        Set<Character> set = new HashSet<>();
+        for(char c : s.toCharArray()) {
+            set.add(c);
+        }
+        return set.size() == s.length();
+    }
+    
+}
 
 
