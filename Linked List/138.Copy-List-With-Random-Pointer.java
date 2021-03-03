@@ -62,43 +62,42 @@ Very smart O(n) time, O(1) space solution by interweaving old and new copy of a 
 class Solution {
     public Node copyRandomList(Node head) {
         Node temp = head;
+        
+        // create interweaving list
         while(temp != null) {
-            Node copy = new Node(temp.val);
+            Node currCopy = new Node(temp.val);
             Node next = temp.next;
-            temp.next = copy;
-            copy.next = next;
+            temp.next = currCopy;
+            currCopy.next = next;
             temp = temp.next.next;
         }
         
+        // modify random pointers
         temp = head;
         while(temp != null) {
-            Node rand = temp.random;
-            if(rand == null) {
+            Node tempRandom = temp.random;
+            if(tempRandom == null) {
                 temp.next.random = null;
             } else {
-                temp.next.random = rand.next;
+                temp.next.random = tempRandom.next;
             }
-            if(temp.next != null) {
-                temp = temp.next.next;
-            }
+            temp = temp.next.next;
         }
         
+        // separate new linked list from interweaved, restore the first one
         temp = head;
         Node newHead = new Node(0);
-        Node copy = newHead;
-        Node copyIter = newHead;
-        
+        Node newTemp = newHead;
         while(temp != null) {
-            Node next = temp.next.next;
+            Node tempNext = temp.next;
+            Node tempNextNext = temp.next.next;
             
-            // extract the copy
-            copy = temp.next;
-            copyIter.next = copy;
-            copyIter = copy;
+            newTemp.next = tempNext;
+            newTemp = newTemp.next;
             
-            // restore the original list
-            temp.next = next;
-            temp = next;
+            temp.next = tempNextNext;
+            temp = temp.next;
+            
         }
         
         return newHead.next;
