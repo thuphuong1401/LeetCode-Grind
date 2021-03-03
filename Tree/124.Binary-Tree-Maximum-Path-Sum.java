@@ -34,6 +34,8 @@ class Solution {
         int rightSum = dfs(root.right);
         max = Math.max(max, leftSum + rightSum + root.val);
         
-        return Math.max(0, root.val + Math.max(leftSum, rightSum)); // crucial
+        // at each node we want to return the longest path passing through this node. If the weight of a path is < 0, don't count it.
+        // Since this value will be used by a node's parent, we can only pick the longest path out of either left or right subtree.
+        return Math.max(0, root.val + Math.max(leftSum, rightSum)); 
     }
 }
