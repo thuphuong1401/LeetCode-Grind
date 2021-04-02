@@ -2,7 +2,7 @@
 https://leetcode.com/problems/sliding-puzzle/
 */
 
-/ Time complexity: O(R * C * (R * C)!) 
+/* Time complexity: O(R * C * (R * C)!) 
   Space complexity: O(R * C * (R * C)!) 
   => there are (R * C)! board states, each board has R*C cells
 */
