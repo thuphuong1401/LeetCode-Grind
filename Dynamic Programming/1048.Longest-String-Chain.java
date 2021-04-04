@@ -2,6 +2,17 @@
 https://leetcode.com/problems/longest-string-chain/
 */
 
+/*
+Big idea: 
+- Think of this as a graph problem, and we have to find the longest path in a DAG (done by DP on graph).
+- Each word in the list corresponds to 1 vertex
+- Vertices have edge iff word[i] + 1 char in a position = word[j]. In other words, word[j] deletes one character is word[i]. THIS IS AN IMPORTANT OBSERVATION
+- Build graph, then DP. 
+DP[i] = longest path starting from i, i is a vertex.
+DP[i] = 1 (since path includes vertex i)
+DP[i] = max(DP[i], longestPath(DP[u]) + 1) with u being a neighbor of i.
+*/
+
 class Solution {
     Map<String, Integer> vertices;
     Map<Integer, List<Integer>> graph;
