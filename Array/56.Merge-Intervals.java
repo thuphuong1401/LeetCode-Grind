@@ -28,3 +28,28 @@ class Solution {
         return merged.toArray(toReturn);
     }
 }
+
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        int n = intervals.length;
+        Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
+        List<int[]> intervalList = new ArrayList<>();
+        intervalList.add(intervals[0]);
+        for(int i = 1; i < n; i++) {
+            int[] curr = intervals[i];
+            if(curr[0] > intervalList.get(intervalList.size() - 1)[1]) {
+                intervalList.add(curr);
+            } else if(curr[1] >= intervalList.get(intervalList.size() - 1)[1]) {
+                intervalList.get(intervalList.size() - 1)[1] = curr[1];
+            }
+        }
+        
+        int size = intervalList.size();
+        int[][] ans = new int[size][2];
+        for(int i = 0; i < size; i++) {
+            ans[i] = intervalList.get(i);
+        }
+        return ans;
+    }
+}
