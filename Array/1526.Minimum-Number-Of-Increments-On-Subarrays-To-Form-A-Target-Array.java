@@ -5,7 +5,7 @@ Very smart problem. Learn the 'wall of bricks' approach.
 class Solution {
     public int minNumberOperations(int[] target) {
         int n = target.length;
-        int res = 0;
+        int res = target[0];
         for(int i = 1; i < n; i++) {
             res += Math.max((target[i] - target[i-1]), 0);
         }
