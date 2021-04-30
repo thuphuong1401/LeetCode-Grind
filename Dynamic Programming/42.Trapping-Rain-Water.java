@@ -39,6 +39,35 @@ class Solution {
 /*
 The more optimized implementation. Time O(n) - Space O(1)
 "Lower envelop technique" - Should think of binary search or two pointers
+Intuition: calculate g(i) = min(max(h[1...i], max(h[i...n]))
+2 pointers - get the min of both pointers. 
 */
+class Solution {
+    
+    public int trap(int[] height) {
+        int n = height.length;
+        if(n <= 2) {
+            return 0;
+        }
+        int i = 0;
+        int j = n-1;
+        int lmax = height[i];
+        int rmax = height[j];
+        int totalWater = 0;
+        
+        while(i <= j) {
+            lmax = Math.max(lmax, height[i]);
+            rmax = Math.max(rmax, height[j]);
+            if(lmax <= rmax) {
+                totalWater += (lmax - height[i]);
+                i++;
+            } else {
+                totalWater += (rmax - height[j]);
+                j--;
+            }
+        }
+        return totalWater;
+    }
+}
 
 
