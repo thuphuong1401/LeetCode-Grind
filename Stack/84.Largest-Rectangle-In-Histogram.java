@@ -27,4 +27,60 @@ class Solution {
 
 
 
+class Solution {
+    
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        
+        Stack<Integer> stack = new Stack<>();
+        
+        int[] closestShorterColFromLeft = new int[n];
+        int[] closestShorterColFromRight = new int[n];
+        for(int i = 0; i < n; i++) {
+            closestShorterColFromLeft[i] = i;
+            closestShorterColFromRight[i] = i;
+        }
+        
+        // find closestShorterColFromRight - increasing stack
+        for(int i = 0; i < n; i++) {
+            while(!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                int x = stack.pop();
+                closestShorterColFromRight[x] = i;
+            }
+            stack.push(i);
+        }
+        
+        while(!stack.isEmpty()) {
+            int x = stack.pop();
+            closestShorterColFromRight[x] = n;
+        }
+        
+        stack.clear();
+
+        // find closestShorterColFromLeft - increasing stack
+        for(int i = n-1; i >= 0; i--) {
+            while(!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                int x = stack.pop();
+                closestShorterColFromLeft[x] = i;
+            }
+            stack.push(i);
+        }
+        
+        while(!stack.isEmpty()) {
+            int x = stack.pop();
+            closestShorterColFromLeft[x] = -1;
+        }
+        
+        int maxArea = 0;
+        for(int i = 0; i < n; i++) {
+            int currArea = (closestShorterColFromRight[i] - closestShorterColFromLeft[i] - 1) * heights[i];
+            maxArea = Math.max(maxArea, currArea);
+        }
+        return maxArea;
+    }
+    
+}
+
+
+
 
