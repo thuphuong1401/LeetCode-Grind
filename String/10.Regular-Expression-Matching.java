@@ -96,3 +96,49 @@ class Solution {
 }
 
 
+/*
+Shortest solution
+*/
+class Solution {
+    
+    public boolean isMatch(String s, String p) {
+        int m = s.length();
+        int n = p.length();
+        int sIndex = 0;
+        int pIndex = 0;
+        int match = -1; // mark (last index) + 1 compare to '*' in s
+        int star = -1; // mark index of '*' in p
+        
+        while(sIndex < m) {
+            if(pIndex < n && (s.charAt(sIndex) == p.charAt(pIndex) || p.charAt(pIndex) == '?')) {
+                sIndex++;
+                pIndex++;
+            } else if(pIndex < n && p.charAt(pIndex) == '*') { // not matching any chars in s
+                star = pIndex;
+                match = sIndex;
+                pIndex++;
+            } else if(star != -1) { // s[sIndex] != p[pIndex] (not same character, no '.') => backtrack!
+                sIndex = match + 1;
+                match = match + 1;
+                pIndex = star + 1;
+            } else {
+                return false;
+            }
+        }
+        boolean allStarsLeft = true;
+        while(pIndex < n) {
+            if(p.charAt(pIndex) != '*') {
+                allStarsLeft = false;
+                break;
+            }
+            pIndex++;
+        }
+        
+        if(!allStarsLeft) {
+            return false;
+        }
+        
+        return true;
+    }
+}
+
