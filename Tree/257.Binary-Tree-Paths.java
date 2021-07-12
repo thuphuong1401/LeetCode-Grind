@@ -91,3 +91,49 @@ class Solution {
         }
     }   
 }
+
+
+
+/*
+Another recursive solution
+*/
+class Solution {
+    List<String> ans;
+    
+    public List<String> binaryTreePaths(TreeNode root) {
+        ans = new ArrayList<>();
+        allPaths(root, new StringBuilder());
+        return ans;
+    }
+    
+    private void allPaths(TreeNode root, StringBuilder sb) {
+        if(root == null) {
+            return;
+        }
+        
+        int currLength = sb.length();
+        sb.append(root.val);
+        
+        if(root.left == null && root.right == null) {
+            ans.add(sb.toString());
+            return;
+        }
+        
+        if(root.left != null) {
+            int prevLength = sb.length();
+            sb.append("->");
+            allPaths(root.left, sb);
+            sb.setLength(prevLength);    
+        }
+        
+        if(root.right != null) {
+            int prevLength = sb.length();
+            sb.append("->");
+            allPaths(root.right, sb);
+            sb.setLength(prevLength);
+        }
+        
+        sb.setLength(currLength);  
+    }
+    
+}
