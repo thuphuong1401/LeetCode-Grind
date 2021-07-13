@@ -60,6 +60,34 @@ class Solution {
 }
 
 // Morris Traversal
-
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> listNodes = new ArrayList<>();
+        TreeNode node = root;
+        while(node != null) {
+            if(node.left == null) {
+                listNodes.add(node.val);
+                node = node.right;
+            } else {
+                TreeNode predecessor = node.left;
+                while(predecessor.right != null && predecessor.right != node) {
+                    predecessor = predecessor.right;
+                }
+                if(predecessor.right == null) {
+                    predecessor.right = node;
+                    node = node.left;
+                } else {
+                    
+                    listNodes.add(node.val);
+                    predecessor.right = null;
+                    node = node.right;
+                }
+            }
+            
+        }
+        
+        return listNodes;
+    }
+}
 
 
