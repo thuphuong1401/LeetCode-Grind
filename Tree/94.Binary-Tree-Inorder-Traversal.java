@@ -90,4 +90,36 @@ class Solution {
     }
 }
 
+// Another iterative approach using stack
+class Solution {
+    // left root right
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        stack.push(node);
+        
+        while(!stack.isEmpty()) {
+            TreeNode currTop = stack.pop();
+            if(currTop == null) {
+                continue;
+            }
+            if(!stack.isEmpty() && stack.peek() == currTop.right) {
+                result.add(currTop.val);
+            } else {
+                stack.push(currTop.right);
+                stack.push(currTop);
+
+                if(currTop.left != null) {
+                    stack.push(currTop.left);
+                }
+            }
+            
+        }
+        return result;
+    }
+}
 
