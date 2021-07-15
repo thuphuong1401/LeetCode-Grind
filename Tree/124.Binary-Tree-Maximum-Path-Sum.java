@@ -39,3 +39,37 @@ class Solution {
         return Math.max(0, root.val + Math.max(leftSum, rightSum)); 
     }
 }
+
+
+
+
+/*
+Calculuate max path sum for every single node in the tree
+maxPathSum(root) = max(0, maxPathSum(root.left)) + max(0, maxPathSum(root.right)) + root.val
+Don't know in what node will the maxPathSum happens => needs a global variable to track
+Child node returns to parent the max 'straight' path involving that child node itself, 
+i.e. max(maxPathSum(root.left) + root.val, maxPathSum(root.right) + root.val)
+*/
+class Solution {
+    int globalMax = Integer.MIN_VALUE;
+    
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return globalMax;
+    }
+    
+    private int helper(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        
+        // max with 0 bc we don't have to include negative paths, which makes sum smaller
+        int maxPathSumLeft = Math.max(0, helper(root.left));
+        int maxPathSumRight = Math.max(0, helper(root.right));
+        
+        int currMaxPathSum = maxPathSumLeft + maxPathSumRight + root.val;
+        globalMax = Math.max(globalMax, currMaxPathSum);
+        
+        return Math.max(maxPathSumLeft, maxPathSumRight) + root.val;
+    }
+}
