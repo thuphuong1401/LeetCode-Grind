@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/binary-tree-maximum-path-sum/
+# See detailed explanation in the Java solution
 
 # Definition for a binary tree node.
 # class TreeNode:
