@@ -18,6 +18,21 @@ class Solution {
     }
 }
 
+// Also O(n^2), 
+class Solution {
+    public void moveZeroes(int[] nums) {
+        i n = nums.length;
+        for(int i = 1; i < n; i++) {
+            int j = i;
+            while(j > 0 && nums[j-1] == 0) {
+                int temp = nums[j-1];
+                nums[j-1] = nums[j];
+                nums[j] = temp;
+                j--;
+            }
+        }
+    }
+}
 
 // Very smart solution indeed
 // Idea: keep a pointer called the positionOfLastNonZero pointer. Loop through the nums array. If encounter nums[i] != 0, copy it to the positionOfLastNonZero
