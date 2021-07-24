@@ -74,3 +74,29 @@ class Solution {
 }
 
 
+/*
+Recursive implementation
+*/
+class Solution {
+    List<List<Integer>> nodes;
+    
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        nodes = new ArrayList<>();
+        helper(root, 0); 
+        return nodes;
+    }
+    
+    private void helper(TreeNode root, int level) {
+        if(root == null) {
+            return;
+        }
+        if(nodes.size() <= level) {
+            nodes.add(new ArrayList<>());
+        }
+        nodes.get(level).add(root.val);
+        
+        helper(root.left, level + 1);
+        helper(root.right, level + 1);
+    } 
+}
+
