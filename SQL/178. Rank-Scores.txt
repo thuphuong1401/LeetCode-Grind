@@ -1,0 +1,6 @@
+# https://leetcode.com/problems/rank-scores/
+# Write your MySQL query statement below
+
+SELECT Score, (SELECT COUNT(DISTINCT Score) FROM Scores s1 WHERE s1.Score >= s2.Score) as 'Rank'
+FROM Scores s2
+ORDER BY Score DESC
