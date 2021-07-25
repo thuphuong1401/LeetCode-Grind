@@ -1,0 +1,28 @@
+# https://leetcode.com/problems/nth-highest-salary/
+
+
+# Approach 1
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  SET N = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT DISTINCT Salary FROM Employee 
+      ORDER BY Salary DESC
+      LIMIT N, 1 # ignore the first (n-1)th rows, select the nth row from top
+  );
+END
+
+
+# Approach 2
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT CASE WHEN (SELECT COUNT(DISTINCT Salary) FROM Employee) >= N THEN MIN(n_highest_salary.Salary) 
+      ELSE null
+      END 
+      FROM (SELECT DISTINCT Salary FROM Employee ORDER BY SALARY DESC LIMIT N) n_highest_salary
+  );
+END
+
