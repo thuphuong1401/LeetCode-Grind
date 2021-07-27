@@ -49,5 +49,56 @@ class Solution {
 }
 
 
+/*
+Another smarter version without the tricky condition
+*/
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int time = 0;
+        
+        int leftBound = 0;
+        int rightBound = n-1;
+        int topBound = 0;
+        int bottomBound = m-1;
+        
+        List<Integer> result = new ArrayList<>();
+        
+        while(result.size() < m*n) {
+            
+            // top
+            for(int i = leftBound; i <= rightBound && result.size() < m*n; i++) {
+                result.add(matrix[topBound][i]);
+            }
+            
+            topBound++;
+            
+            // right
+            for(int i = topBound; i <= bottomBound && result.size() < m*n; i++) {
+                result.add(matrix[i][rightBound]);
+            }
+            
+            rightBound--;
+            
+            // bottom
+            for(int i = rightBound; i >= leftBound && result.size() < m*n; i--) {
+                result.add(matrix[bottomBound][i]);
+            }
+            
+            
+            bottomBound--;
+            
+            // left
+            for(int i = bottomBound; i >= topBound && result.size() < m*n; i--) {
+                result.add(matrix[i][leftBound]);
 
+            }
+            
+            leftBound++;
+        }
+        
+        return result;
+    }
+}
 
