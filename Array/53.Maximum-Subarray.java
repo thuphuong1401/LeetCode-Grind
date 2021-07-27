@@ -87,3 +87,24 @@ class Solution {
 }
 
 
+/*
+Another implementation of Kadane's algorithm: when encounter a negative sum subarray, reset the sum to 0
+*/
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int n = nums.length;
+        int maxSum = Integer.MIN_VALUE;
+        int currSubarraySum = 0;
+        for(int i = 0; i < n; i++) {
+            int num = nums[i];
+            currSubarraySum += num;
+            maxSum = Math.max(maxSum, currSubarraySum);
+            if(currSubarraySum < 0) {
+                currSubarraySum = 0;
+            }
+        }
+        
+        return maxSum;
+    }
+}
+
