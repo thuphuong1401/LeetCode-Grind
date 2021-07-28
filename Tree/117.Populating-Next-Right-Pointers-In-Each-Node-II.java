@@ -59,4 +59,58 @@ class Solution {
 }
 
 
-
+/*
+O(N) time, O(1) space. Kinda tricky.
+BFS without queue
+*/
+class Solution {
+    public Node connect(Node root) {
+        if(root == null) {
+            return root;
+        }
+        root.next = null;
+        Node parent = root;
+        Node firstNotNull = null;
+        Node levelPointer = null;
+        
+        while(true) {
+            
+            while(parent != null) {
+                if(parent.left != null) {
+                    firstNotNull = parent.left;
+                    break;
+                } else if(parent.right != null) {
+                    firstNotNull = parent.right;
+                    break;
+                }
+                parent = parent.next;
+            }
+            
+            
+            if(parent == null) {
+                break;
+            }
+            
+            levelPointer = firstNotNull;
+            
+            while(parent != null) {
+                if(parent.left != null && parent.left != levelPointer) {
+                    levelPointer.next = parent.left;
+                    levelPointer = levelPointer.next;
+                } else if(parent.right != null && parent.right != levelPointer) {
+                    levelPointer.next = parent.right;
+                    levelPointer = levelPointer.next;
+                    parent = parent.next;
+                } else {
+                    parent = parent.next;
+                }
+            }
+            
+            parent = firstNotNull;
+            
+        }
+        
+        return root;
+        
+    }
+}
