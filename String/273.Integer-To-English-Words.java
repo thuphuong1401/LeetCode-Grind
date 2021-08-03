@@ -116,3 +116,48 @@ class Solution {
         return res.toString();
     }
 }
+
+
+
+
+/*
+A more concise solution based on having 2 maps (lessthan20 and lessthan100) and use recursion to read the number. 
+Divide into range (less than 20, 100, 1000, 1M, 1B) and read recursively. Remember to return the trimmed string.
+*/
+class Solution {
+    String[] lessThan20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
+                              "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    String[] lessThan100 = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};   
+    public String numberToWords(int num) {
+        if(num == 0) {
+            return "Zero";
+        }
+        return helper(num).trim();
+    }
+    
+    private String helper(int num) {
+        String res = "";
+        if(num == 0) {
+            res = "";
+        } else if(num < 20) {
+            res = lessThan20[num];
+        } else if(num < 100) {
+            int ten = num / 10;
+            res = lessThan100[ten] + " " + lessThan20[num - ten * 10];
+        } else if(num < 1000) {
+            int hundred = num / 100;
+            res = helper(num / 100) + " Hundred " + helper(num - hundred * 100);
+        } else if(num < 1000000) {
+            int thousand = num / 1000;
+            res = helper(num / 1000) + " Thousand " + helper(num - thousand * 1000);
+        } else if(num < 1000000000) {
+            int million = num / 1000000;
+            res = helper(num / 1000000) + " Million " + helper(num - million * 1000000);
+        } else {
+            int billion = num / 1000000000;
+            res = helper(num / 1000000000) + " Billion " + helper(num - billion * 1000000000);
+        }
+        
+        return res.trim();
+    }
+}
