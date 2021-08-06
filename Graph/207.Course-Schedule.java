@@ -88,3 +88,53 @@ class Solution {
         return false;
     }
 }
+
+
+
+/*
+DFS solution
+*/
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for(int[] edge : prerequisites) {
+            int u = edge[0];
+            int v = edge[1];
+            graph.get(v).add(u);
+        }
+        boolean[] visited = new boolean[numCourses];
+        boolean[] allChildrenVisited = new boolean[numCourses];
+        for(int u = 0; u < numCourses; u++) {
+            boolean ans = false;
+            if(!visited[u] && !allChildrenVisited[u]) {
+                ans = findCycle(u, -1, graph, visited, allChildrenVisited);    
+            }
+            if(ans) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    private boolean findCycle(int u, int p, List<List<Integer>> graph, boolean[] visited, boolean[] allChildrenVisited) {
+        visited[u] = true;
+        for(int neighbor : graph.get(u)) {
+            if(!visited[neighbor]) {
+                boolean ans = findCycle(neighbor, u, graph, visited, allChildrenVisited);
+                if(ans) {
+                    return true;
+                }
+            } else if(visited[neighbor] && !allChildrenVisited[neighbor]) {
+                return true;
+            }
+        }
+        allChildrenVisited[u] = true;
+        return false;
+    }
+    
+}
+
