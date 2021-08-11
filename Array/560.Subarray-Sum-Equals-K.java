@@ -46,3 +46,33 @@ class Solution {
         return count;
     }
 }
+
+
+/*
+A much cleaner solution
+*/
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int total = 0;
+        Map<Integer, Integer> sumFrequency = new HashMap<>();
+        sumFrequency.put(0, 1);
+        int n = nums.length;
+        int currSum = 0;
+        for(int i = 0; i < n; i++) {
+            int num = nums[i];
+            currSum += num;
+            if(sumFrequency.containsKey(currSum - k)) {
+                total += sumFrequency.get(currSum - k); 
+            }
+            
+            if(sumFrequency.containsKey(currSum)) {
+                sumFrequency.put(currSum, sumFrequency.get(currSum) + 1);
+            } else {
+                sumFrequency.put(currSum, 1);
+            }
+        }
+        
+        return total;
+    }
+}
+
