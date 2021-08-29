@@ -42,3 +42,51 @@ class Solution {
     }
     
 }
+
+
+
+/*
+My implementation. I think this is clearer.
+*/
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        String longest = "";
+        
+        // check for odd length palindrome
+        for(int i = 0; i < n; i++) {
+            int j = i;
+            for(int l = 0; l < n; l++) {
+                int start = i - l;
+                int end = i + l;
+                if(start >= 0 && end < n && s.charAt(start) == s.charAt(end)) {
+                    int currLength = end - start + 1;
+                    if(longest.length() < currLength) {
+                        longest = s.substring(start, end + 1);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        // check for even length palindrome
+        for(int i = 0; i < n-1; i++) {
+            int j = i;
+            for(int l = 0; l < n; l++) {
+                int start = i - l;
+                int end = i + l + 1;
+                if(start >= 0 && end < n && s.charAt(start) == s.charAt(end)) {
+                    int currLength = end - start + 1;
+                    if(longest.length() < currLength) {
+                        longest = s.substring(start, end + 1);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        return longest;
+    }
+}
