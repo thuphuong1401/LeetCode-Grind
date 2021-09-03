@@ -1,5 +1,8 @@
 /*
 https://leetcode.com/problems/array-nesting/
+
+Formulate the problem as finding the largest component in a graph problem.
+"Edges" between (i, nums[i])
 */
 
 class DSU {
