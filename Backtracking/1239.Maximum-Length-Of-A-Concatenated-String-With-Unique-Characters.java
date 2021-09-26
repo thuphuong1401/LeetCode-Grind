@@ -82,3 +82,52 @@ class Solution {
 }
 
 
+
+/*
+Backtracking
+*/
+class Solution {
+    int ans;
+    
+    public int maxLength(List<String> arr) {
+        ans = 0;
+        backtracking(arr, new StringBuilder(), 0);        
+        return ans;
+    }
+    
+    
+    private void backtracking(List<String> arr, StringBuilder sb, int index) {
+        
+        int currLength = sb.length();
+        ans = Math.max(ans, currLength);
+        
+        if(index == arr.size()) {
+            return;
+        }
+        
+        for(int i = index; i < arr.size(); i++) {
+            StringBuilder temp = new StringBuilder(sb);
+            String cand = arr.get(i);
+            temp.append(cand);
+            if(allUniqueCharacters(temp.toString())) {
+                int l = sb.length();
+                sb.append(cand);
+                backtracking(arr, sb, i + 1);
+                sb.setLength(l);
+            }
+        }
+    }
+    
+    
+    private boolean allUniqueCharacters(String s) {
+        int n = s.length();
+        Set<Character> set = new HashSet<>();
+        for(char c : s.toCharArray()) {
+            set.add(c);
+        }
+        return set.size() == n;
+    }
+}
+
+
+
