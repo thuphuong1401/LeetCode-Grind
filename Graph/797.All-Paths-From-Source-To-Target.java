@@ -46,3 +46,33 @@ class Solution {
         }   
     }
 }
+
+
+class Solution {
+    List<List<Integer>> allPaths;
+    
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        allPaths = new ArrayList<>();
+        int n = graph.length;
+        backtrack(0, graph, n, new ArrayList<>());
+        return allPaths;
+    }
+    
+    private void backtrack(int s, int[][] graph, int n, List<Integer> currPath) {   
+        
+        currPath.add(s);
+        
+        if(s == n-1) {
+            allPaths.add(new ArrayList<>(currPath));
+            currPath.remove(currPath.size() - 1);
+            return;
+        }   
+        
+        for(int neighbor : graph[s]) {
+            backtrack(neighbor, graph, n, currPath);
+        }
+        
+        currPath.remove(currPath.size() - 1);
+    }
+    
+}
